@@ -1,0 +1,43 @@
+.grid-container {
+  position: absolute;
+  background-color: black;
+  height: 100%;
+  top: 100%;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.grid-square {
+    float: left;
+    height: 20%;
+    width: 20%;
+}
+    .grid-square:nth-child(odd) {
+        background-color: orange;
+    }
+
+.grid-background {
+  background-color: black;
+  height: 750px;
+  width: 750px;
+  border: black 2px solid;
+}
+
+.grid-row {
+  height: 20%;
+  background-color: white;
+}
+
+.grid-cell {
+  float: left;
+  box-shadow: 0 0 0 .5px grey inset;
+  background-color: black;
+  width: 2%;
+  height: 2%;
+}
+
+
+.alive {
+  background-color: blue;
+}
