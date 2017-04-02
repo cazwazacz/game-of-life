@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Main from '../components/Main';
+import helpers from '../utils/helpers';
 
 var cellsArray = [];
 for (let i = 0; i < 2500; i++) {
@@ -41,13 +42,6 @@ for (let i=0; i<6; i++) {
 	five = five + 1;
 }
 
-console.log(testArr);
-
-// var row = <div className="grid-row"> {cells} </div>
-// var rows = [];
-// for (let i = 0; i < 5; i++) {
-// 	rows.push(row);
-// }
 
 class MainContainer extends Component {
 	constructor(props) {
@@ -59,7 +53,6 @@ class MainContainer extends Component {
 	}
 
 	componentWillMount() {
-		console.log('componentWillMount');
 		// for (let i = 0; i < 7; i++) {
 		// 	var randInt = getRandomInt(0, 25);
 		// 	cellsArray[randInt] = <div id={randInt} className="grid-cell alive"></div>
@@ -73,16 +66,19 @@ class MainContainer extends Component {
 	}
 
 	componentDidMount() {
-		var newCells = [];
-		for (let i = 0; i < 2500; i++) {
-			newCells.push(<div id={i} className="grid-cell alive"></div>);
-		}
 
 		setTimeout(function() {
+
+            var nextGen = helpers.checker(this.state.cells);
+
 			this.setState({
-			cells: newCells
+			cells: nextGen
 		});
-		}.bind(this), 1000);
+		}.bind(this), 2000);
+
+		// var nextGen = helpers.checker(this.state.cells);
+		// console.log(nextGen);
+		
 
 	}
 	render() {
