@@ -41,3 +41,11 @@
 .alive {
   background-color: blue;
 }
+
+.newborn {
+  background-color: #6699ff;
+}
+
+.cell-button {
+  border: none;
+}

@@ -60,32 +60,33 @@ var helpers = {
 
 			var aliveSearchCursor = "grid-cell alive";
 
-			if (array[i].props.className === "grid-cell alive") {
+			// looking through alive and newborn cells
+			if (array[i].props.className === "grid-cell alive" || array[i].props.className === "grid-cell newborn") {
 				
 				var cellId = array[i].props.id
 				
 				var aliveSearchCursor = "grid-cell alive";
+				var newbornSearchCursor = "grid-cell newborn";
                 var aliveNeighbours = neighbours.reduce(function(n, value) {
-                  return n + (value === aliveSearchCursor);
+                  return n + (value === aliveSearchCursor || value === newbornSearchCursor);
                 }, 0);
-                console.log(cellId + ' has ' + aliveNeighbours + ' alive neighbours')
                 if (aliveNeighbours < 2 || aliveNeighbours > 3) {
                 	arrayCopy[i] = <div id={i} className="grid-cell"></div>
-                	console.log(cellId + ' dies')
                 } else {
-                	console.log(cellId + ' lives')
+                	arrayCopy[i] = <div id={i} className="grid-cell alive"></div>
                 }
 
+			//looking through dead cells
 			} else { 
 
 
                 var aliveNeighbours = neighbours.reduce(function(n, value) {
-                  return n + (value === aliveSearchCursor);
+                  return n + (value === aliveSearchCursor || value === newbornSearchCursor);
                 }, 0);
 
                 if (aliveNeighbours === 3) {
-                	arrayCopy[i] = <div id={i} className="grid-cell alive"></div>
-                	console.log(cellId + ' newborn')
+                	//arrayCopy[i] = <div id={i} className="grid-cell alive"></div>
+                	arrayCopy[i] = <div id={i} className="grid-cell newborn"></div>
                 }
 
 			}

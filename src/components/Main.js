@@ -19,6 +19,8 @@ function Main (props) {
       <div className="grid-background">
       	{props.rows}
       </div>
+      <div>Generation: {props.generationNumber}</div>
+      <button onClick={props.onNextGeneration}>Next Generation</button>
       </div>
 	)
 }

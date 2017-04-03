@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
 import Main from '../components/Main';
 import helpers from '../utils/helpers';
+import '../App.css';
 
 var cellsArray = [];
 for (let i = 0; i < 2500; i++) {
-	cellsArray.push(<div id={i} className="grid-cell"></div>);
+	cellsArray.push(<div id={i} onClick={cellClick} className="grid-cell"></div>);
 }
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min)) + min;
+}
+
+function cellClick() {
+	console.log('hello')
 }
 
 var testArr = [];
@@ -48,42 +53,53 @@ class MainContainer extends Component {
 		super(props);
 
 		this.state = {
-			cells: cellsArray
+			cells: cellsArray,
+			generationNumber: 0
 		}
+
+		this.handleNextGeneration = this.handleNextGeneration.bind(this);
 	}
 
 	componentWillMount() {
-		// for (let i = 0; i < 7; i++) {
-		// 	var randInt = getRandomInt(0, 25);
-		// 	cellsArray[randInt] = <div id={randInt} className="grid-cell alive"></div>
-		// }
-        
-        for (let i = 0; i < 7; i++) {
-			var randInt = testArr[getRandomInt(0, 25)];
+
+		for (let i = 0; i < 600; i++) {
+			var randInt = getRandomInt(0, 2500);
 			cellsArray[randInt] = <div id={randInt} className="grid-cell alive"></div>
 		}
+        
+  //       for (let i = 0; i < 7; i++) {
+		// 	var randInt = testArr[getRandomInt(0, 25)];
+		// 	cellsArray[randInt] = <div id={randInt} className="grid-cell alive"></div>
+		// }
 
 	}
 
 	componentDidMount() {
 
-		setTimeout(function() {
+		setInterval(function() {
 
             var nextGen = helpers.checker(this.state.cells);
 
 			this.setState({
-			cells: nextGen
+			cells: nextGen,
+			generationNumber: this.state.generationNumber + 1
 		});
-		}.bind(this), 2000);
-
-		// var nextGen = helpers.checker(this.state.cells);
-		// console.log(nextGen);
+		}.bind(this), 80);
 		
 
 	}
+	handleNextGeneration() {
+		 var nextGen = helpers.checker(this.state.cells);
+
+			this.setState({
+			cells: nextGen
+		});
+	}
 	render() {
 		return (
-          <Main rows={this.state.cells}/>
+          <Main rows={this.state.cells}
+          generationNumber={this.state.generationNumber}
+          onNextGeneration={this.handleNextGeneration}/>
 		)
 	}
 }
